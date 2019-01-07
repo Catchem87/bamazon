@@ -17,7 +17,6 @@ connection.connect(function (err) {
         for (var i = 0; i < result.length; i++) {
             console.log("Item ID: " + result[i].item_id + "\n" + "Product Name: " + result[i].product_name + "\n" + "Department: " + result[i].department_name + "\n" + "Price Per Unit: " + result[i].price + "\n" + "Available Units: " + result[i].stock_quantity + "\n");
         };
-        // console.log(result);
         requestOrder();
     });
 });
@@ -41,7 +40,7 @@ function requestOrder() {
             }, function (err, res) {
                 if (err) throw err;
                 if (res[0].stock_quantity < answer.quantity) {
-                    console.log("Insufficient quantity in stock to fulfill order.\n");
+                    console.log("\nInsufficient quantity in stock to fulfill order.\n");
                     requestOrder();
                 } else {
                     var updatedQuantity = res[0].stock_quantity - answer.quantity;
