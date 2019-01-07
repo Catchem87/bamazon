@@ -31,5 +31,19 @@ connection.connect(function(err){
             type: "input",
             message: "Enter the quantity that you would like to purchase."
         }
-    ]).then()
+    ]).then(function(answer) {
+        var query = "SELECT * FROM products WHERE ?";
+        connection.query(query, { item_id: answer.id }, function(err, res) {
+            if(err) throw err;
+            if(res[0].stock_quantity < answer.quantity){
+                console.log("Insufficient quantity in stock to fulfill order.");
+            } else {
+                var updatedQuantity = res[0].stock_quantity - answer.quantity;
+                var totalPrice = answer.quantity * res[0].price;
+                console.log("Total Price: $" + totalPrice.toFixed(2));
+            }
+            // console.log(res[0].stock_quantity);
+        })
+    });
 }
+
