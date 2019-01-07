@@ -40,10 +40,14 @@ connection.connect(function(err){
             } else {
                 var updatedQuantity = res[0].stock_quantity - answer.quantity;
                 var totalPrice = answer.quantity * res[0].price;
+                var id = answer.id;
                 console.log("Total Price: $" + totalPrice.toFixed(2));
-            }
-            // console.log(res[0].stock_quantity);
-        })
+                var sql = "UPDATE products SET stock_quantity = " + updatedQuantity + "WHERE item_id = " + id;
+                connection.query(sql, function(err, result) {
+                    if (err) throw err;
+                    console.log(result.affectedRows + " record(s) updated");
+                });
+            };
+        });
     });
 }
-
