@@ -50,7 +50,7 @@ function requestOrder() {
                     var sql = "UPDATE products SET stock_quantity = " + updatedQuantity + " WHERE item_id = " + id;
                     connection.query(sql, function (err, result) {
                         if (err) throw err;
-                        console.log("Total Price: $" + totalPrice.toFixed(2));
+                        console.log("\nThank you for your order.  \nYour total price is: $" + totalPrice.toFixed(2));
                         connection.end();
                     });
                 };
